@@ -294,12 +294,22 @@ document.addEventListener('DOMContentLoaded', () => {
                     body: formData,
                     headers: { 'Accept': 'application/json' }
                 });
-                const data = await response.json();
+                
+                // FormSubmit returns HTML for activation, JSON for success
+                const contentType = response.headers.get('content-type');
+                if (contentType && contentType.includes('application/json')) {
+                    const data = await response.json();
+                    if (data.success === 'false' || data.success === false) {
+                        throw new Error(data.message || 'Submission failed');
+                    }
+                }
+                
+                // If we get here, submission was successful (200 OK)
                 if (response.ok) {
                     showNotification('Thank you! Your booking request has been submitted. We will contact you shortly!', 'success');
                     bookingForm.reset();
                 } else {
-                    throw new Error(data.message || 'Submission failed');
+                    throw new Error('Submission failed');
                 }
             } catch (error) {
                 console.error('Form error:', error);
@@ -348,12 +358,22 @@ document.addEventListener('DOMContentLoaded', () => {
                     body: formData,
                     headers: { 'Accept': 'application/json' }
                 });
-                const data = await response.json();
+                
+                // FormSubmit returns HTML for activation, JSON for success
+                const contentType = response.headers.get('content-type');
+                if (contentType && contentType.includes('application/json')) {
+                    const data = await response.json();
+                    if (data.success === 'false' || data.success === false) {
+                        throw new Error(data.message || 'Submission failed');
+                    }
+                }
+                
+                // If we get here, submission was successful (200 OK)
                 if (response.ok) {
                     showNotification('Thank you! Your request has been submitted. Our team will contact you within 24 hours.', 'success');
                     contactForm.reset();
                 } else {
-                    throw new Error(data.message || 'Submission failed');
+                    throw new Error('Submission failed');
                 }
             } catch (error) {
                 console.error('Form error:', error);
