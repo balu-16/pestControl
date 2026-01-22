@@ -7,6 +7,28 @@ document.addEventListener('DOMContentLoaded', () => {
     'use strict';
 
     // ========================================
+    // LAZY IMAGE LOADING - Smooth Fade In
+    // ========================================
+    const lazyImages = document.querySelectorAll('img[loading="lazy"]');
+    lazyImages.forEach(img => {
+        if (img.complete) {
+            img.classList.add('loaded');
+        } else {
+            img.addEventListener('load', () => img.classList.add('loaded'));
+        }
+    });
+
+    // ========================================
+    // FORM SUBMISSION SUCCESS MESSAGE
+    // ========================================
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('submitted') === 'true') {
+        showNotification('Thank you! Your request has been submitted successfully. Check your email for confirmation.', 'success');
+        // Clean up URL
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+
+    // ========================================
     // MOBILE MENU - Smooth Animation
     // ========================================
     const menuToggle = document.querySelector('.menu-toggle');
@@ -253,53 +275,11 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        bookingForm.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
+        // Form submits via FormSubmit.co - show loading state
+        bookingForm.addEventListener('submit', function() {
             const submitBtn = bookingForm.querySelector('button[type="submit"]');
-            const originalHTML = submitBtn.innerHTML;
-            
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
             submitBtn.disabled = true;
-            
-            try {
-                const formData = new FormData(bookingForm);
-                const response = await fetch('api/booking-handler.php', {
-                    method: 'POST',
-                    body: formData
-                });
-                
-                const result = await response.json();
-                
-                if (result.success) {
-                    submitBtn.innerHTML = '<i class="fas fa-check"></i> Thank You!';
-                    submitBtn.style.background = 'linear-gradient(135deg, #28a745 0%, #20c997 100%)';
-                    showNotification(result.message, 'success');
-                    bookingForm.reset();
-                } else {
-                    submitBtn.innerHTML = '<i class="fas fa-times"></i> Error';
-                    submitBtn.style.background = '#dc3545';
-                    showNotification(result.message, 'error');
-                }
-                
-                setTimeout(() => {
-                    submitBtn.innerHTML = originalHTML;
-                    submitBtn.disabled = false;
-                    submitBtn.style.background = '';
-                }, 3000);
-                
-            } catch (error) {
-                console.error('Form submission error:', error);
-                submitBtn.innerHTML = '<i class="fas fa-times"></i> Error';
-                submitBtn.style.background = '#dc3545';
-                showNotification('Network error. Please try again or call us directly.', 'error');
-                
-                setTimeout(() => {
-                    submitBtn.innerHTML = originalHTML;
-                    submitBtn.disabled = false;
-                    submitBtn.style.background = '';
-                }, 3000);
-            }
         });
     }
 
@@ -325,53 +305,11 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        contactForm.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
+        // Form submits via FormSubmit.co - show loading state
+        contactForm.addEventListener('submit', function() {
             const submitBtn = contactForm.querySelector('button[type="submit"]');
-            const originalHTML = submitBtn.innerHTML;
-            
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
             submitBtn.disabled = true;
-            
-            try {
-                const formData = new FormData(contactForm);
-                const response = await fetch('api/contact-handler.php', {
-                    method: 'POST',
-                    body: formData
-                });
-                
-                const result = await response.json();
-                
-                if (result.success) {
-                    submitBtn.innerHTML = '<i class="fas fa-check"></i> Request Submitted!';
-                    submitBtn.style.background = 'linear-gradient(135deg, #28a745 0%, #20c997 100%)';
-                    showNotification(result.message, 'success');
-                    contactForm.reset();
-                } else {
-                    submitBtn.innerHTML = '<i class="fas fa-times"></i> Error';
-                    submitBtn.style.background = '#dc3545';
-                    showNotification(result.message, 'error');
-                }
-                
-                setTimeout(() => {
-                    submitBtn.innerHTML = originalHTML;
-                    submitBtn.disabled = false;
-                    submitBtn.style.background = '';
-                }, 4000);
-                
-            } catch (error) {
-                console.error('Form submission error:', error);
-                submitBtn.innerHTML = '<i class="fas fa-times"></i> Error';
-                submitBtn.style.background = '#dc3545';
-                showNotification('Network error. Please try again or call us directly.', 'error');
-                
-                setTimeout(() => {
-                    submitBtn.innerHTML = originalHTML;
-                    submitBtn.disabled = false;
-                    submitBtn.style.background = '';
-                }, 3000);
-            }
         });
     }
 

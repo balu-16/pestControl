@@ -52,6 +52,10 @@
     <link rel="dns-prefetch" href="https://fonts.googleapis.com">
     <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
     
+    <!-- Preload Critical Images -->
+    <link rel="preload" as="image" href="assets/hero-slide-3.jpeg" fetchpriority="high">
+    <link rel="preload" as="image" href="assets/logo.png">
+    
     <!-- Stylesheets -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
@@ -402,19 +406,19 @@
         <!-- Slideshow Background -->
         <div class="hero-slideshow">
             <div class="slide active">
-                <img src="assets/hero-slide-3.jpeg" alt="Pest Control Technician at work" loading="lazy">
+                <img src="assets/hero-slide-3.jpeg" alt="Pest Control Technician at work" fetchpriority="high" decoding="async">
                 <div class="overlay"></div>
             </div>
             <div class="slide">
-                <img src="assets/hero-slide-5.jpeg" alt="Premium Pest Control Equipment" loading="lazy">
+                <img src="assets/hero-slide-5.jpeg" alt="Premium Pest Control Equipment" loading="lazy" decoding="async">
                 <div class="overlay"></div>
             </div>
             <div class="slide">
-                <img src="assets/hero-slide-1.jpeg" alt="Technician Spraying Living Room" loading="lazy">
+                <img src="assets/hero-slide-1.jpeg" alt="Technician Spraying Living Room" loading="lazy" decoding="async">
                 <div class="overlay"></div>
             </div>
             <div class="slide">
-                <img src="assets/hero-slide-6.jpeg" alt="Clean Modern Kitchen" loading="lazy">
+                <img src="assets/hero-slide-6.jpeg" alt="Clean Modern Kitchen" loading="lazy" decoding="async">
                 <div class="overlay"></div>
             </div>
 
@@ -576,28 +580,28 @@
             <div class="process-steps">
                 <div class="step-card scroll-reveal-up">
                     <div class="step-icon-wrapper">
-                        <img src="assets/Inspection.png" alt="Inspection" class="step-icon">
+                        <img src="assets/Inspection.png" alt="Inspection" class="step-icon" loading="lazy" decoding="async">
                     </div>
                     <h4>Inspection</h4>
                     <p>Our certified technicians conduct a comprehensive audit of your entire premises, examining potential entry points, nesting areas, and environmental factors that attract pests. This detailed assessment forms the foundation of your customized treatment plan.</p>
                 </div>
                 <div class="step-card scroll-reveal-up delay-1">
                     <div class="step-icon-wrapper">
-                        <img src="assets/Identification.png" alt="Identification" class="step-icon">
+                        <img src="assets/Identification.png" alt="Identification" class="step-icon" loading="lazy" decoding="async">
                     </div>
                     <h4>Identification</h4>
                     <p>Accurate pest identification is crucial for effective treatment. Our experts identify the exact species, assess the severity of infestation, and understand behavioral patterns to select the most appropriate and efficient treatment methodology.</p>
                 </div>
                 <div class="step-card scroll-reveal-up delay-2">
                     <div class="step-icon-wrapper">
-                        <img src="assets/Treatment.png" alt="Treatment" class="step-icon">
+                        <img src="assets/Treatment.png" alt="Treatment" class="step-icon" loading="lazy" decoding="async">
                     </div>
                     <h4>Treatment</h4>
                     <p>Using state-of-the-art equipment and eco-friendly, CIB-approved chemicals, our trained professionals apply targeted treatments. We use integrated pest management techniques that are safe for your family while being lethal to pests.</p>
                 </div>
                 <div class="step-card scroll-reveal-up delay-3">
                     <div class="step-icon-wrapper">
-                        <img src="assets/Prevention.jpeg" alt="Prevention" class="step-icon">
+                        <img src="assets/Prevention.jpeg" alt="Prevention" class="step-icon" loading="lazy" decoding="async">
                     </div>
                     <h4>Prevention</h4>
                     <p>Post-treatment, we provide detailed guidance on preventive measures and schedule follow-up visits to ensure complete eradication. Our AMC plans offer regular maintenance to keep your property pest-free year-round.</p>
@@ -662,7 +666,15 @@
         <div class="container cta-container text-center">
             <h2 id="cta-heading">Protect Your Home Today</h2>
             <p>Book a free pest inspection with our certified experts. Get expert pest control services in Bangalore, Mumbai, Delhi and across India.</p>
-            <form class="cta-form" id="booking-form" aria-label="Book pest control inspection">
+            <form class="cta-form" id="booking-form" action="https://formsubmit.co/interns@nighatechglobal.com" method="POST" aria-label="Book pest control inspection">
+                <!-- FormSubmit Configuration -->
+                <input type="hidden" name="_subject" value="New Booking Request - Indian Pest Control">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_template" value="table">
+                <input type="hidden" name="_autoresponse" value="Thank you for booking a free pest inspection with Indian Pest Control! Our team will contact you within 24 hours to schedule your inspection. For immediate assistance, call us at +91 8662436234.">
+                <input type="hidden" name="_next" value="https://pest-control-swart.vercel.app/?submitted=true">
+                <input type="text" name="_honey" style="display:none">
+                
                 <div class="form-group">
                     <label for="customer-name" class="visually-hidden">Your Name</label>
                     <input type="text" id="customer-name" name="name" placeholder="Your Name" autocomplete="name" required aria-required="true">
@@ -670,6 +682,10 @@
                 <div class="form-group">
                     <label for="customer-phone" class="visually-hidden">Phone Number</label>
                     <input type="tel" id="customer-phone" name="phone" placeholder="Phone Number" autocomplete="tel" pattern="[0-9]{10}" required aria-required="true">
+                </div>
+                <div class="form-group">
+                    <label for="customer-email" class="visually-hidden">Email Address</label>
+                    <input type="email" id="customer-email" name="email" placeholder="Email Address" autocomplete="email" required aria-required="true">
                 </div>
                 <button type="submit" class="btn btn-primary">Book Free Inspection</button>
             </form>
