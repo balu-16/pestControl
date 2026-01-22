@@ -57,7 +57,7 @@ try {
     $callback = isset($_POST['callback']) ? true : false;
 
     // Validate required fields
-    if (empty($name) || empty($phone) || empty($city) || empty($service) || empty($propertyType)) {
+    if (empty($name) || empty($phone) || empty($email) || empty($city) || empty($service) || empty($propertyType)) {
         http_response_code(400);
         echo json_encode(['success' => false, 'message' => 'Please fill in all required fields']);
         exit();
