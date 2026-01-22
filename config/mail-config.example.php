@@ -43,7 +43,7 @@ define('MAIL_CHARSET', 'UTF-8');
 
 // Company details for email templates
 define('COMPANY_NAME', getenv('COMPANY_NAME') ?: 'Indian Pest Control');
-define('COMPANY_PHONE', getenv('COMPANY_PHONE') ?: '+91 8662436234');
+define('COMPANY_PHONE', getenv('COMPANY_PHONE') ?: '+91 8297808410');
 define('COMPANY_EMAIL', getenv('COMPANY_EMAIL') ?: 'support@indianpestcontrol.com');
 define('COMPANY_ADDRESS', getenv('COMPANY_ADDRESS') ?: '29-29-10/B, Moulana St, Eluru Road, Opp. Canara Bank, Arundalpet, Governor Peta, Vijayawada, Andhra Pradesh 520002');
 define('COMPANY_WEBSITE', getenv('COMPANY_WEBSITE') ?: 'https://www.indianpestcontrol.com');
