@@ -154,6 +154,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const SLIDE_DURATION = 6000;
 
     function showSlide(index) {
+        if (slides.length === 0) return; // Guard for pages without slideshow
+        
         slides.forEach((slide, i) => {
             slide.classList.remove('active');
             // Reset animation
@@ -209,16 +211,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Keyboard navigation for slideshow
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowRight') {
-            nextSlide();
-            resetTimer();
-        } else if (e.key === 'ArrowLeft') {
-            prevSlide();
-            resetTimer();
-        }
-    });
+    // Keyboard navigation for slideshow (only if slides exist)
+    if (slides.length > 0) {
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') {
+                nextSlide();
+                resetTimer();
+            } else if (e.key === 'ArrowLeft') {
+                prevSlide();
+                resetTimer();
+            }
+        });
+    }
 
     // Pause on hover for better UX
     const hero = document.querySelector('.hero');
