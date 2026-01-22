@@ -279,11 +279,35 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        // Form submits via FormSubmit.co - show loading state
-        bookingForm.addEventListener('submit', function() {
+        // Form submits via FormSubmit.co with AJAX
+        bookingForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
             const submitBtn = bookingForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
             submitBtn.disabled = true;
+            
+            try {
+                const formData = new FormData(bookingForm);
+                const response = await fetch(bookingForm.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: { 'Accept': 'application/json' }
+                });
+                const data = await response.json();
+                if (response.ok) {
+                    showNotification('Thank you! Your booking request has been submitted. We will contact you shortly!', 'success');
+                    bookingForm.reset();
+                } else {
+                    throw new Error(data.message || 'Submission failed');
+                }
+            } catch (error) {
+                console.error('Form error:', error);
+                showNotification('Sorry, there was an error. Please call us at +91 8297808410.', 'error');
+            } finally {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
         });
     }
 
@@ -309,11 +333,35 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        // Form submits via FormSubmit.co - show loading state
-        contactForm.addEventListener('submit', function() {
+        // Form submits via FormSubmit.co with AJAX
+        contactForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
             const submitBtn = contactForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
             submitBtn.disabled = true;
+            
+            try {
+                const formData = new FormData(contactForm);
+                const response = await fetch(contactForm.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: { 'Accept': 'application/json' }
+                });
+                const data = await response.json();
+                if (response.ok) {
+                    showNotification('Thank you! Your request has been submitted. Our team will contact you within 24 hours.', 'success');
+                    contactForm.reset();
+                } else {
+                    throw new Error(data.message || 'Submission failed');
+                }
+            } catch (error) {
+                console.error('Form error:', error);
+                showNotification('Sorry, there was an error. Please call us at +91 8297808410.', 'error');
+            } finally {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
         });
     }
 
