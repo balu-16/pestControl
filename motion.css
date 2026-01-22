@@ -1,0 +1,519 @@
+/* ========================================
+   MOTION DESIGN SYSTEM
+   Premium scroll & cursor-reactive effects
+   GPU-accelerated, accessibility-first
+   ======================================== */
+
+/* ========================================
+   CSS CUSTOM PROPERTIES - Motion Config
+   ======================================== */
+:root {
+    --motion-duration-fast: 200ms;
+    --motion-duration-normal: 400ms;
+    --motion-duration-slow: 600ms;
+    --motion-duration-slower: 800ms;
+    
+    --motion-ease-out: cubic-bezier(0.33, 1, 0.68, 1);
+    --motion-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+    --motion-ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --motion-ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+    
+    --parallax-intensity: 0.15;
+    --cursor-glow-size: 400px;
+    --cursor-glow-opacity: 0.08;
+    --magnetic-strength: 0.3;
+}
+
+/* ========================================
+   REDUCED MOTION - Accessibility First
+   ======================================== */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    
+    .motion-reveal,
+    .motion-parallax,
+    .motion-fade,
+    [data-motion] {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
+    
+    .cursor-glow,
+    .cursor-dot {
+        display: none !important;
+    }
+    
+    .motion-magnetic {
+        transform: none !important;
+    }
+}
+
+/* ========================================
+   SCROLL REVEAL ANIMATIONS
+   Bi-directional fade + translate
+   ======================================== */
+
+[data-motion="fade-up"] {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: 
+        opacity var(--motion-duration-slow) var(--motion-ease-out),
+        transform var(--motion-duration-slow) var(--motion-ease-out);
+    will-change: opacity, transform;
+}
+
+[data-motion="fade-up"].motion-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+[data-motion="fade-down"] {
+    opacity: 0;
+    transform: translateY(-40px);
+    transition: 
+        opacity var(--motion-duration-slow) var(--motion-ease-out),
+        transform var(--motion-duration-slow) var(--motion-ease-out);
+    will-change: opacity, transform;
+}
+
+[data-motion="fade-down"].motion-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+[data-motion="fade-left"] {
+    opacity: 0;
+    transform: translateX(-60px);
+    transition: 
+        opacity var(--motion-duration-slow) var(--motion-ease-out),
+        transform var(--motion-duration-slow) var(--motion-ease-out);
+    will-change: opacity, transform;
+}
+
+[data-motion="fade-left"].motion-visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+[data-motion="fade-right"] {
+    opacity: 0;
+    transform: translateX(60px);
+    transition: 
+        opacity var(--motion-duration-slow) var(--motion-ease-out),
+        transform var(--motion-duration-slow) var(--motion-ease-out);
+    will-change: opacity, transform;
+}
+
+[data-motion="fade-right"].motion-visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+[data-motion="fade"] {
+    opacity: 0;
+    transition: opacity var(--motion-duration-slow) var(--motion-ease-out);
+    will-change: opacity;
+}
+
+[data-motion="fade"].motion-visible {
+    opacity: 1;
+}
+
+[data-motion="scale-up"] {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: 
+        opacity var(--motion-duration-slow) var(--motion-ease-out),
+        transform var(--motion-duration-slow) var(--motion-ease-spring);
+    will-change: opacity, transform;
+}
+
+[data-motion="scale-up"].motion-visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+[data-motion="zoom-in"] {
+    opacity: 0;
+    transform: scale(0.95);
+    transition: 
+        opacity var(--motion-duration-normal) var(--motion-ease-out),
+        transform var(--motion-duration-normal) var(--motion-ease-out);
+    will-change: opacity, transform;
+}
+
+[data-motion="zoom-in"].motion-visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Staggered delays for grid items */
+[data-motion-delay="1"] { transition-delay: 100ms; }
+[data-motion-delay="2"] { transition-delay: 200ms; }
+[data-motion-delay="3"] { transition-delay: 300ms; }
+[data-motion-delay="4"] { transition-delay: 400ms; }
+[data-motion-delay="5"] { transition-delay: 500ms; }
+[data-motion-delay="6"] { transition-delay: 600ms; }
+
+/* ========================================
+   PARALLAX LAYERS
+   Depth illusion with GPU acceleration
+   ======================================== */
+
+[data-parallax] {
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+.parallax-container {
+    overflow: hidden;
+    position: relative;
+}
+
+.parallax-bg {
+    position: absolute;
+    inset: -20%;
+    will-change: transform;
+    transform: translateZ(0);
+}
+
+/* ========================================
+   SCROLL PROGRESS INDICATOR
+   ======================================== */
+
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: transparent;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+.scroll-progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary, #0D6D4A) 0%, var(--primary-light, #10B981) 100%);
+    transform-origin: left;
+    transform: scaleX(0);
+    will-change: transform;
+}
+
+/* ========================================
+   NAVBAR SCROLL BEHAVIOR
+   Hide on scroll down, reveal on scroll up
+   ======================================== */
+
+.navbar {
+    transition: 
+        transform var(--motion-duration-normal) var(--motion-ease-out),
+        box-shadow var(--motion-duration-normal) var(--motion-ease-out),
+        background-color var(--motion-duration-normal) var(--motion-ease-out);
+    will-change: transform;
+}
+
+.navbar.nav-hidden {
+    transform: translateX(-50%) translateY(-120%);
+}
+
+.navbar.nav-shadow {
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+}
+
+/* ========================================
+   CURSOR GLOW EFFECT
+   Soft radial gradient following cursor
+   ======================================== */
+
+.cursor-glow {
+    position: fixed;
+    width: var(--cursor-glow-size);
+    height: var(--cursor-glow-size);
+    border-radius: 50%;
+    background: radial-gradient(
+        circle,
+        rgba(13, 109, 74, var(--cursor-glow-opacity)) 0%,
+        rgba(13, 109, 74, 0.04) 30%,
+        transparent 70%
+    );
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity var(--motion-duration-normal) var(--motion-ease-out);
+    will-change: transform, opacity;
+    mix-blend-mode: normal;
+}
+
+.cursor-glow.active {
+    opacity: 1;
+}
+
+/* Hide on touch devices */
+@media (hover: none) and (pointer: coarse) {
+    .cursor-glow {
+        display: none !important;
+    }
+}
+
+/* ========================================
+   MAGNETIC HOVER EFFECTS
+   Buttons/cards attract toward cursor
+   ======================================== */
+
+.motion-magnetic {
+    transition: transform var(--motion-duration-fast) var(--motion-ease-out);
+    will-change: transform;
+}
+
+/* ========================================
+   HOVER MICRO-ANIMATIONS
+   Subtle, premium interactions
+   ======================================== */
+
+.motion-hover-lift {
+    transition: 
+        transform var(--motion-duration-normal) var(--motion-ease-out),
+        box-shadow var(--motion-duration-normal) var(--motion-ease-out);
+}
+
+.motion-hover-lift:hover {
+    transform: translateY(-6px);
+    box-shadow: 
+        0 20px 40px -10px rgba(0, 0, 0, 0.1),
+        0 10px 20px -5px rgba(0, 0, 0, 0.04);
+}
+
+.motion-hover-scale {
+    transition: transform var(--motion-duration-normal) var(--motion-ease-spring);
+}
+
+.motion-hover-scale:hover {
+    transform: scale(1.03);
+}
+
+.motion-hover-glow {
+    transition: box-shadow var(--motion-duration-normal) var(--motion-ease-out);
+}
+
+.motion-hover-glow:hover {
+    box-shadow: 0 0 40px rgba(13, 109, 74, 0.2);
+}
+
+/* Text underline reveal */
+.motion-underline {
+    position: relative;
+    display: inline-block;
+}
+
+.motion-underline::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--primary, #0D6D4A), var(--primary-light, #10B981));
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform var(--motion-duration-normal) var(--motion-ease-out);
+}
+
+.motion-underline:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+/* Icon rotate on hover */
+.motion-icon-rotate {
+    transition: transform var(--motion-duration-normal) var(--motion-ease-spring);
+    display: inline-block;
+}
+
+.motion-icon-rotate:hover,
+*:hover > .motion-icon-rotate {
+    transform: rotate(15deg) scale(1.1);
+}
+
+/* Icon scale on hover */
+.motion-icon-scale {
+    transition: transform var(--motion-duration-normal) var(--motion-ease-spring);
+    display: inline-block;
+}
+
+.motion-icon-scale:hover,
+*:hover > .motion-icon-scale {
+    transform: scale(1.2);
+}
+
+/* ========================================
+   CARD DEPTH EFFECT
+   3D tilt on hover
+   ======================================== */
+
+.motion-tilt {
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    transition: transform var(--motion-duration-fast) var(--motion-ease-out);
+    will-change: transform;
+}
+
+.motion-tilt-inner {
+    transform: translateZ(20px);
+}
+
+/* ========================================
+   SECTION TRANSITIONS
+   Smooth section entry animations
+   ======================================== */
+
+.section-animate {
+    position: relative;
+}
+
+.section-animate::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--primary, #0D6D4A), transparent);
+    transition: width var(--motion-duration-slower) var(--motion-ease-out);
+}
+
+.section-animate.motion-visible::before {
+    width: 100%;
+}
+
+/* ========================================
+   IMAGE REVEAL ANIMATIONS
+   ======================================== */
+
+.motion-image-reveal {
+    position: relative;
+    overflow: hidden;
+}
+
+.motion-image-reveal::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--bg, #FAFBFC);
+    transform: scaleX(1);
+    transform-origin: right;
+    transition: transform var(--motion-duration-slower) var(--motion-ease-in-out);
+    will-change: transform;
+}
+
+.motion-image-reveal.motion-visible::after {
+    transform: scaleX(0);
+}
+
+.motion-image-reveal img {
+    transform: scale(1.2);
+    transition: transform var(--motion-duration-slower) var(--motion-ease-out);
+    transition-delay: 200ms;
+}
+
+.motion-image-reveal.motion-visible img {
+    transform: scale(1);
+}
+
+/* ========================================
+   COUNTER ANIMATIONS
+   Number count-up effect styling
+   ======================================== */
+
+.motion-counter {
+    font-variant-numeric: tabular-nums;
+}
+
+/* ========================================
+   LOADING STATES
+   Skeleton shimmer effect
+   ======================================== */
+
+.motion-skeleton {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(90deg, 
+        var(--bg-alt, #F1F5F9) 0%, 
+        var(--surface, #FFFFFF) 50%, 
+        var(--bg-alt, #F1F5F9) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* ========================================
+   PERFORMANCE HINTS
+   GPU layer promotion for smooth animations
+   ======================================== */
+
+.motion-gpu {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+/* Contain paint for better performance */
+.motion-contain {
+    contain: layout style paint;
+}
+
+/* ========================================
+   LOW POWER MODE ADJUSTMENTS
+   Scale down effects on battery saver
+   ======================================== */
+
+@media (prefers-reduced-data: reduce) {
+    [data-parallax] {
+        transform: none !important;
+    }
+    
+    .cursor-glow {
+        display: none !important;
+    }
+}
+
+/* ========================================
+   PRINT STYLES
+   Disable all motion for print
+   ======================================== */
+
+@media print {
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+    
+    [data-motion],
+    .motion-reveal {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+    
+    .cursor-glow,
+    .scroll-progress {
+        display: none !important;
+    }
+}

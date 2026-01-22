@@ -1,0 +1,11 @@
+{
+    "name": "indianpestcontrol/website",
+    "description": "Indian Pest Control Website",
+    "type": "project",
+    "require": {
+        "phpmailer/phpmailer": "^6.9"
+    },
+    "config": {
+        "vendor-dir": "vendor"
+    }
+}

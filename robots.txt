@@ -1,0 +1,39 @@
+# Robots.txt for Indian Pest Control
+# https://www.indianpestcontrol.com
+
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://pest-control-swart.vercel.app/sitemap.xml
+
+# Crawl delay (optional - be respectful to server resources)
+Crawl-delay: 1
+
+# Disallow admin or private areas (add as needed)
+# Disallow: /admin/
+# Disallow: /private/
+
+# Allow important resources for rendering
+Allow: /assets/
+Allow: /styles.css
+Allow: /main.js
+
+# Block common non-content paths
+Disallow: /*.json$
+Disallow: /package.json
+Disallow: /node_modules/
+
+# Specific bot rules
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+# Host directive (canonical domain)
+Host: https://www.indianpestcontrol.com

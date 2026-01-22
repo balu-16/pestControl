@@ -1,0 +1,23 @@
+# Dependencies
+/vendor/
+composer.lock
+
+# Environment & Credentials (keep example, ignore actual)
+config/mail-config.php
+!config/mail-config.example.php
+.env
+.env.local
+!.env.example
+
+# IDE
+.idea/
+.vscode/
+*.sublime-*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+error_log
