@@ -1506,15 +1506,45 @@ input, textarea, select {
     border-radius: var(--radius-full);
 }
 
-.footer-contact address a {
+.footer-contact {
+    color: var(--text-muted);
+}
+
+.footer-contact h4 {
+    color: var(--text-inverse);
+    font-size: var(--text-base);
+    font-weight: 600;
+    margin-bottom: var(--space-4);
+}
+
+.footer-contact address {
+    font-style: normal;
+    line-height: 1.6;
+    margin-bottom: var(--space-3);
+}
+
+.footer-contact address i {
+    color: var(--accent);
+    margin-right: var(--space-2);
+}
+
+.footer-contact p {
+    margin-bottom: var(--space-2);
+}
+
+.footer-contact p i {
+    color: var(--accent);
+    margin-right: var(--space-2);
+    width: 16px;
+}
+
+.footer-contact a {
     color: var(--text-muted);
     text-decoration: none;
-    line-height: 1.6;
-    display: block;
     transition: color 0.3s ease;
 }
 
-.footer-contact address a:hover {
+.footer-contact a:hover {
     color: var(--accent);
 }
 
