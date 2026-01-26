@@ -2919,3 +2919,47 @@ a.branch-item:hover {
         text-align: center;
     }
 }
+
+/* ========================================
+   WhatsApp Floating Button
+   ======================================== */
+.whatsapp-float {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 30px;
+    left: 30px;
+    background-color: #25d366;
+    color: #FFF;
+    border-radius: 50px;
+    text-align: center;
+    font-size: 35px;
+    box-shadow: 2px 2px 3px #999;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.whatsapp-float:hover {
+    background-color: #20b85a;
+    transform: scale(1.1);
+    color: #FFF;
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.4);
+}
+
+.whatsapp-float i {
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+}
+
+@media (max-width: 768px) {
+    .whatsapp-float {
+        width: 50px;
+        height: 50px;
+        bottom: 20px;
+        left: 20px;
+        font-size: 28px;
+    }
+}
