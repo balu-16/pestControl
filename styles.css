@@ -1409,8 +1409,17 @@ select {
     display: grid;
     grid-template-columns: 2fr 1fr 1fr 1.5fr;
     gap: var(--space-12);
-    padding-bottom: var(--space-16);
+    padding-bottom: var(--space-8);
 }
+
+.footer-contact {
+    grid-column: span 2;
+}
+
+.footer-branches-col {
+    grid-column: span 2;
+}
+
 
 .footer-logo {
     display: inline-block;
@@ -1508,23 +1517,23 @@ select {
     color: var(--primary-light);
 }
 
-.footer-branches {
-    padding: var(--space-6) 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-}
+/* Old footer-branches styles removed */
 
-.footer-branches h4 {
+.footer-branches-col h4 {
     color: var(--text-inverse);
-    font-size: var(--text-base);
-    margin-bottom: var(--space-4);
-    text-align: center;
+    font-size: var(--text-sm);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: var(--space-6);
+    text-align: left;
 }
 
 .branches-list {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    gap: var(--space-2) var(--space-4);
+    justify-content: flex-start;
+    gap: var(--space-2);
 }
 
 .branches-list span {
@@ -2888,9 +2897,7 @@ a.service-card:hover .service-link {
     text-decoration: none;
 }
 
-a.branch-item:hover {
-    color: var(--text-inverse);
-}
+
 
 .branch-item:hover {
     background: var(--primary);
@@ -2947,11 +2954,11 @@ a.branch-item:hover {
     background-color: #20b85a;
     transform: scale(1.1);
     color: #FFF;
-    box-shadow: 2px 2px 6px rgba(0,0,0,0.4);
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
 }
 
 .whatsapp-float i {
-    text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
 }
 
 @media (max-width: 768px) {
@@ -2961,5 +2968,60 @@ a.branch-item:hover {
         bottom: 20px;
         left: 20px;
         font-size: 28px;
+    }
+}
+
+/* ========================================
+   BRANCHES SECTION
+   ======================================== */
+
+.branches-content {
+    background: var(--surface);
+    padding: var(--space-8);
+    border-radius: var(--radius-2xl);
+    box-shadow: var(--shadow-card);
+    border: 1px solid var(--border-light);
+}
+
+.branches-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: var(--space-4);
+    margin-bottom: var(--space-6);
+}
+
+.branch-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-4);
+    background: var(--bg-alt);
+    border-radius: var(--radius-lg);
+    font-weight: 500;
+    color: var(--text-secondary);
+    transition: var(--transition-normal);
+    border: 1px solid transparent;
+}
+
+.branch-item i {
+    color: var(--primary);
+    font-size: 1.25rem;
+}
+
+.branch-item:hover {
+    background: var(--surface);
+    border-color: var(--primary-light);
+    color: #000000;
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+}
+
+@media (max-width: 768px) {
+    .branches-content {
+        padding: var(--space-6);
+    }
+
+    .branches-grid {
+        grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
     }
 }

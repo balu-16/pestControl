@@ -268,7 +268,7 @@ H1: Indian Pest Control (1 per page)
 ## Contact Information (for Schema)
 - **Business Name**: Indian Pest Control
 - **Phone**: +91-98765-43210
-- **Email**: support@indianpestcontrol.com
+- **Email**: Indianpestcontrol.ho@gmail.com
 - **Address**: 123, Tech Park, Indiranagar, Bangalore, Karnataka 560038, India
 - **Coordinates**: 12.9716, 77.5946
 - **Hours**: Mon-Sat 08:00-20:00
